@@ -55,7 +55,6 @@ public class LocadoraService {
 
 	public LocadoraDto update(String cnpj, LocadoraDto locadoraDto) {
 		try {
-
 			LocadoraModel model = locadoraDao.getByCnpj(cnpj);
 			model.setCnpj(locadoraDto.getCnpj());
 			model.setEndereco(locadoraDto.getEndereco());
