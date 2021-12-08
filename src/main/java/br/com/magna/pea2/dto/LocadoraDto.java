@@ -3,7 +3,7 @@ package br.com.magna.pea2.dto;
 import java.time.LocalDate;
 
 public class LocadoraDto {
-	private Long cnpj;
+	private String cnpj;
 	private String nomeDvd;
 	private LocalDate data = LocalDate.now();
 	private String endereco;
@@ -11,11 +11,11 @@ public class LocadoraDto {
 	public LocadoraDto() {
 	}
 
-	public Long getCnpj() {
+	public String getCnpj() {
 		return cnpj;
 	}
 
-	public void setCnpj(Long cnpj) {
+	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
 	}
 
@@ -47,4 +47,5 @@ public class LocadoraDto {
 	public String toString() {
 		return "LocadoraDto [cnpj=" + cnpj + ", nomeDvd=" + nomeDvd + ", data=" + data + ", endereco=" + endereco + "]";
 	}
+
 }

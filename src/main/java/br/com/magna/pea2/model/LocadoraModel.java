@@ -18,7 +18,7 @@ public class LocadoraModel implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Long cnpj;
+	private String cnpj;
 	private String nomeDvd;
 	private LocalDate data = LocalDate.now();
 	private String endereco;
@@ -26,12 +26,28 @@ public class LocadoraModel implements Serializable {
 	public LocadoraModel() {
 	}
 
-	public LocadoraModel(Long id, Long cnpj, String nomeDvd, LocalDate data, String endereco) {
+	public LocadoraModel(Long id, String cnpj, String nomeDvd, LocalDate data, String endereco) {
 		this.id = id;
 		this.cnpj = cnpj;
 		this.nomeDvd = nomeDvd;
 		this.data = data;
 		this.endereco = endereco;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
 	}
 
 	public String getNomeDvd() {
@@ -42,18 +58,6 @@ public class LocadoraModel implements Serializable {
 		this.nomeDvd = nomeDvd;
 	}
 
-	public Long getCnpj() {
-		return cnpj;
-	}
-
-	public void setCnpj(Long cnpj) {
-		this.cnpj = cnpj;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
 	public LocalDate getData() {
 		return data;
 	}
@@ -62,18 +66,14 @@ public class LocadoraModel implements Serializable {
 		this.data = data;
 	}
 
+	public String getEndereco() {
+		return endereco;
+	}
+
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public String getEndereco() {
-		return endereco;
-	}
-	
 	@Override
 	public String toString() {
 		return "LocadoraModel [id=" + id + ", cnpj=" + cnpj + ", nomeDvd=" + nomeDvd + ", data=" + data + ", endereco="
