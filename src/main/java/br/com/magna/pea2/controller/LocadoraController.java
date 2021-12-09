@@ -1,7 +1,6 @@
 package br.com.magna.pea2.controller;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -31,14 +30,12 @@ public class LocadoraController {
 
 	@Inject
 	private LocadoraService locadoraService;
-	private static final Logger LOGGER = Logger.getLogger(LocadoraController.class.getName());
 
 	// Traz todos os guardados no banco
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<LocadoraDto> dislplayAll() {
 		try {
-			LOGGER.info("Buscando Todos Cadastrados");
 			return locadoraService.all();
 		} catch (Exception ex) {
 			throw ex;
@@ -50,7 +47,6 @@ public class LocadoraController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public LocadoraDto searchByCnpj(@PathParam("cnpj") String cnpj) {
 		try {
-			LOGGER.info("Buscando Usuario Por Cnpj " + cnpj);
 			return locadoraService.searchByCnpj(cnpj);
 		} catch (Exception ex) {
 			throw ex;
@@ -63,7 +59,6 @@ public class LocadoraController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response save(LocadoraModel locadora) {
 		try {
-			LOGGER.info("Cadastrando Novo Usuario");
 			locadoraService.saveLocadoraDao(locadora);
 			return Response.ok().build();
 		} catch (NotFoundException ex) {
@@ -78,7 +73,6 @@ public class LocadoraController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response put(@PathParam("cnpj") String cnpj, LocadoraDto locadoraDto) {
 		try {
-			LOGGER.info("Atualizando Usuario Cadastrado");
 			LocadoraDto dto = locadoraService.update(cnpj, locadoraDto);
 			return Response.ok(dto).build();
 		} catch (NotFoundException ex) {
@@ -95,7 +89,6 @@ public class LocadoraController {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response delete(@PathParam("cnpj") String cnpj) {
 		try {
-			LOGGER.info("Removendo Usuario");
 			locadoraService.delete(cnpj);
 			return Response.ok().build();
 		} catch (NotFoundException ex) {
