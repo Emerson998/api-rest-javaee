@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,19 +20,23 @@ public class LocadoraModel implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String cnpj;
-	private String nomeDvd;
+	private long senha;
 	private LocalDate data = LocalDate.now();
 	private String endereco;
+	@OneToOne
+	private FornecedorModel fornecedor;
 
 	public LocadoraModel() {
 	}
 
-	public LocadoraModel(Long id, String cnpj, String nomeDvd, LocalDate data, String endereco) {
+	public LocadoraModel(Long id, String cnpj, long senha, LocalDate data, String endereco,
+			FornecedorModel fornecedor) {
 		this.id = id;
 		this.cnpj = cnpj;
-		this.nomeDvd = nomeDvd;
+		this.senha = senha;
 		this.data = data;
 		this.endereco = endereco;
+		this.fornecedor = fornecedor;
 	}
 
 	public Long getId() {
@@ -50,12 +55,12 @@ public class LocadoraModel implements Serializable {
 		this.cnpj = cnpj;
 	}
 
-	public String getNomeDvd() {
-		return nomeDvd;
+	public long getSenha() {
+		return senha;
 	}
 
-	public void setNomeDvd(String nomeDvd) {
-		this.nomeDvd = nomeDvd;
+	public void setSenha(long senha) {
+		this.senha = senha;
 	}
 
 	public LocalDate getData() {
@@ -76,13 +81,13 @@ public class LocadoraModel implements Serializable {
 
 	@Override
 	public String toString() {
-		return "LocadoraModel [id=" + id + ", cnpj=" + cnpj + ", nomeDvd=" + nomeDvd + ", data=" + data + ", endereco="
+		return "LocadoraModel [id=" + id + ", cnpj=" + cnpj + ", senha=" + senha + ", data=" + data + ", endereco="
 				+ endereco + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(cnpj, data, endereco, id, nomeDvd);
+		return Objects.hash(cnpj, data, endereco, id, senha);
 	}
 
 	@Override
@@ -95,8 +100,7 @@ public class LocadoraModel implements Serializable {
 			return false;
 		LocadoraModel other = (LocadoraModel) obj;
 		return Objects.equals(cnpj, other.cnpj) && Objects.equals(data, other.data)
-				&& Objects.equals(endereco, other.endereco) && Objects.equals(id, other.id)
-				&& Objects.equals(nomeDvd, other.nomeDvd);
+				&& Objects.equals(endereco, other.endereco) && Objects.equals(id, other.id) && senha == other.senha;
 	}
 
 }

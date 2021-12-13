@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
@@ -31,9 +32,9 @@ public class LocadoraController {
 	@Inject
 	private LocadoraService locadoraService;
 
-	// Traz todos os guardados no banco
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	public List<LocadoraDto> dislplayAll() {
 		try {
 			return locadoraService.all();
@@ -45,6 +46,7 @@ public class LocadoraController {
 	@GET
 	@Path("/{cnpj}")
 	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
 	public LocadoraDto searchByCnpj(@PathParam("cnpj") String cnpj) {
 		try {
 			return locadoraService.searchByCnpj(cnpj);
@@ -53,7 +55,6 @@ public class LocadoraController {
 		}
 	}
 
-	// Cadastra no Banco
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -61,8 +62,10 @@ public class LocadoraController {
 		try {
 			locadoraService.saveLocadoraDao(locadora);
 			return Response.ok().build();
-		} catch (NotFoundException ex) {
-			return Response.noContent().build();
+		} catch (EntityNotFoundException ex) {
+			throw ex;
+		} catch (Exception ex) {
+			throw ex;
 		}
 	}
 
@@ -71,11 +74,11 @@ public class LocadoraController {
 	@Path("/{cnpj}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response put(@PathParam("cnpj") String cnpj, LocadoraDto locadoraDto) {
+	public Response change(@PathParam("cnpj") String cnpj, LocadoraDto locadoraDto) {
 		try {
-			LocadoraDto dto = locadoraService.update(cnpj, locadoraDto);
+			LocadoraDto dto = locadoraService.change(cnpj, locadoraDto);
 			return Response.ok(dto).build();
-		} catch (NotFoundException ex) {
+		} catch (EntityNotFoundException ex) {
 			ex.getMessage();
 			return Response.noContent().build();
 		} catch (Exception ex) {
@@ -87,6 +90,7 @@ public class LocadoraController {
 	@DELETE
 	@Path("/{cnpj}")
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response delete(@PathParam("cnpj") String cnpj) {
 		try {
 			locadoraService.delete(cnpj);

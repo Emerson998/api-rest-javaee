@@ -1,10 +1,12 @@
 package br.com.magna.pea2.dto;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class LocadoraDto {
+
 	private String cnpj;
-	private String nomeDvd;
+	private long senha;
 	private LocalDate data = LocalDate.now();
 	private String endereco;
 
@@ -19,12 +21,12 @@ public class LocadoraDto {
 		this.cnpj = cnpj;
 	}
 
-	public String getNomeDvd() {
-		return nomeDvd;
+	public long getSenha() {
+		return senha;
 	}
 
-	public void setNomeDvd(String nomeDvd) {
-		this.nomeDvd = nomeDvd;
+	public void setSenha(long senha) {
+		this.senha = senha;
 	}
 
 	public LocalDate getData() {
@@ -45,7 +47,25 @@ public class LocadoraDto {
 
 	@Override
 	public String toString() {
-		return "LocadoraDto [cnpj=" + cnpj + ", nomeDvd=" + nomeDvd + ", data=" + data + ", endereco=" + endereco + "]";
+		return "LocadoraDto [cnpj=" + cnpj + ", senha=" + senha + ", data=" + data + ", endereco=" + endereco + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(cnpj, data, endereco, senha);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		LocadoraDto other = (LocadoraDto) obj;
+		return Objects.equals(cnpj, other.cnpj) && Objects.equals(data, other.data)
+				&& Objects.equals(endereco, other.endereco) && senha == other.senha;
 	}
 
 }

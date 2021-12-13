@@ -1,6 +1,7 @@
 package br.com.magna.pea2.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -12,26 +13,38 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "cliente")
-public class ClienteModel implements Serializable{
-	
+public class ClienteModel implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String cpf;
-	private String nome;
+	private long senha;
+	private LocalDate data = LocalDate.now();
+	private String endereco;
 	@OneToOne
 	private LocadoraModel locadora;
 
 	public ClienteModel() {
 	}
 
-	public ClienteModel(Long id, String cpf, String nome, LocadoraModel locadora) {
+	public ClienteModel(Long id, String cpf, long senha, LocalDate data, String endereco, LocadoraModel locadora) {
 		this.id = id;
 		this.cpf = cpf;
-		this.nome = nome;
+		this.senha = senha;
+		this.data = data;
+		this.endereco = endereco;
 		this.locadora = locadora;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getCpf() {
@@ -42,24 +55,32 @@ public class ClienteModel implements Serializable{
 		this.cpf = cpf;
 	}
 
-	public Long getId() {
-		return id;
+	public long getSenha() {
+		return senha;
 	}
 
-	public String getNome() {
-		return nome;
+	public void setSenha(long senha) {
+		this.senha = senha;
+	}
+
+	public LocalDate getData() {
+		return data;
+	}
+
+	public void setData(LocalDate data) {
+		this.data = data;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
 	}
 
 	public LocadoraModel getLocadora() {
 		return locadora;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
 	}
 
 	public void setLocadora(LocadoraModel locadora) {
@@ -68,12 +89,13 @@ public class ClienteModel implements Serializable{
 
 	@Override
 	public String toString() {
-		return "LocadoraModel [id=" + id + ", cpf=" + cpf + ", nome=" + nome + ", locadora=" + locadora + "]";
+		return "ClienteModel [id=" + id + ", cpf=" + cpf + ", senha=" + senha + ", data=" + data + ", endereco="
+				+ endereco + ", locadora=" + locadora + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(cpf, locadora, id, nome);
+		return Objects.hash(cpf, data, endereco, id, locadora, senha);
 	}
 
 	@Override
@@ -85,7 +107,9 @@ public class ClienteModel implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		ClienteModel other = (ClienteModel) obj;
-		return Objects.equals(cpf, other.cpf) && Objects.equals(locadora, other.locadora) && Objects.equals(id, other.id)
-				&& Objects.equals(nome, other.nome);
+		return Objects.equals(cpf, other.cpf) && Objects.equals(data, other.data)
+				&& Objects.equals(endereco, other.endereco) && Objects.equals(id, other.id)
+				&& Objects.equals(locadora, other.locadora) && senha == other.senha;
 	}
+
 }

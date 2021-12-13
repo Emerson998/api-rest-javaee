@@ -37,7 +37,7 @@ public class LocadoraDao {
 		return locadora;
 	}
 
-	public LocadoraModel atualizar(LocadoraModel locadora) {
+	public LocadoraModel change(LocadoraModel locadora) {
 		locadora = em.find(LocadoraModel.class, locadora.getId());
 		LocadoraModel locadoraAtualizada = em.merge(locadora);
 		return locadoraAtualizada;
